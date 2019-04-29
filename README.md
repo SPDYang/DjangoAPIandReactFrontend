@@ -36,12 +36,12 @@ Make sure the computer has installed Python 3.7.2 and Node.js v11.10.0 with npm 
   - in the individual TODO view, clicking on the due date enable to list all TODOs having that due date
   
 ## Django API
-  - a new TODO task can be created at http://127.0.0.1:8000/api/task, and all available TODOs are listed on the page
-  - access an individual TODO at http://127.0.0.1:8000/api/task/{id}/, where {id} belongs to the target TODO (e.g. http://127.0.0.1:8000/api/task/1 allows users to view the TODO with an ID 1)
+  - a new TODO task can be created at http://127.0.0.1:8000/api/task/, and all available TODOs are listed on the page
+  - access an individual TODO at http://127.0.0.1:8000/api/task/{id}/, where {id} belongs to the target TODO (e.g. http://127.0.0.1:8000/api/task/1/ allows users to view the TODO with an ID 1)
   - users can either update or delete a TODO on its detail page
-  - all todo tasks are listed at http://127.0.0.1:8000/api/todo_task
-  - all in-progress tasks are listed at http://127.0.0.1:8000/api/doing_task
-  - all done tasks are listed at http://127.0.0.1:8000/api/done_task
+  - all todo tasks are listed at http://127.0.0.1:8000/api/todo_task/
+  - all in-progress tasks are listed at http://127.0.0.1:8000/api/doing_task/
+  - all done tasks are listed at http://127.0.0.1:8000/api/done_task/
   
 ## Django API App testing
 ```sh
