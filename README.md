@@ -23,7 +23,7 @@ Make sure the computer has installed Python 3.7.2 and Node.js v11.10.0 with npm 
   sudo npm run dev
   
   # Run dev server (from root)
-  # Django API on http://127.0.0.1:8000/api/task
+  # Django API on http://127.0.0.1:8000/api/task/
   # frontend interface on http://127.0.0.1:8000/
   python3 manage.py runserver
 ```
