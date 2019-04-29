@@ -24,7 +24,7 @@ export class Form extends Component {
 		this.setState({
 			content: "",
 			due: "",
-			status: ""
+			status: todo.status
 		});
 	};
 
@@ -56,7 +56,7 @@ export class Form extends Component {
 					</div>
 					<div className = "form-group">
 						<label>Status</label>
-						<select name = "status" onChange={this.onChange} className = "browser-default custom-select">
+						<select id = "select_status" name = "status" onChange={this.onChange} className = "browser-default custom-select">
 				            <option value = ""> -- select an option -- </option>
 				            <option value = "todo">todo</option>
 				            <option value = "in-progress">in-progress</option>

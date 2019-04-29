@@ -87,3 +87,14 @@ export const getdoneTodos = () => dispatch => {
 		});
 	}).catch(err => console.log(err));
 };
+
+
+// FILTER date TODOS
+export const getdateTodos = (date) => dispatch => {
+	axios.get(`/api/task/date/${date}/`).then(res => {
+		dispatch({
+			type: "GET_DATE_TODOS",
+			payload: res.data
+		});
+	}).catch(err => console.log(err));
+};

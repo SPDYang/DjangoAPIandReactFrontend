@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getTodos, deleteTodo, getOneTodo, gettodoTodos, getdoingTodos, getdoneTodos, updateTodo } from '../../actions/todos';
+import { getTodos, deleteTodo, getOneTodo, gettodoTodos, getdoingTodos, getdoneTodos, updateTodo, getdateTodos } from '../../actions/todos';
 
 
 export class Todos extends Component {
@@ -14,6 +14,7 @@ export class Todos extends Component {
 		getdoingTodos: PropTypes.func.isRequired,
 		getdoneTodos: PropTypes.func.isRequired,
 		updateTodo: PropTypes.func.isRequired,
+		getdateTodos: PropTypes.func.isRequired,
 	};
 
 	display_detail = false;
@@ -42,46 +43,80 @@ export class Todos extends Component {
 		const { content, due, status } = todo;
 		const new_todo = { content, due, status }
 		this.props.updateTodo(id, new_todo);
-		console.log(id)
-		console.log(new_todo)
+		// console.log(id)
+		// console.log(new_todo)
+	}
+
+	getDate = (datetime) => {
+		this.display_detail = false;
+		let dateHolder = datetime.substr(0, 10);
+		let date = dateHolder[8] + dateHolder[9] + dateHolder[5] + dateHolder[6] + dateHolder[0] + dateHolder[1] + dateHolder[2] + dateHolder[3];
+		// console.log(date);
+		this.props.getdateTodos(date);
 	}
 	
 	render() {
 		return(	
 			<div>
 				<div className = "row">
-					<div className = "col"><button onClick = {() => {this.display_detail = false;this.props.getTodos()}}>all</button></div>
-					<div className = "col"><button onClick = {() => {this.display_detail = false;this.props.gettodoTodos()}}>todo</button></div>
-					<div className = "col"><button onClick = {() => {this.display_detail = false;this.props.getdoingTodos()}}>doing</button></div>
-					<div className = "col"><button onClick = {() => {this.display_detail = false;this.props.getdoneTodos()}}>done</button></div>
+					<div className = "col"><a href = "#" onClick = {() => {this.display_detail = false; this.props.getTodos()}}>all</a></div>
+					<div className = "col"><a href = "#" onClick = {() => {this.display_detail = false; this.props.gettodoTodos()}}>todo</a></div>
+					<div className = "col"><a href = "#" onClick = {() => {this.display_detail = false; this.props.getdoingTodos()}}>in-progress</a></div>
+					<div className = "col"><a href = "#" onClick = {() => {this.display_detail = false; this.props.getdoneTodos()}}>done</a></div>
 				</div>
 				<h1>Todo</h1>
 				<table className = "table table-striped">
 					<thead>
 						<tr>
-							<th></th>
+							
 							<th>Task</th>
-							{ this.display_detail ? <th>Due</th>: null}
-							{ this.display_detail ? <th>Status</th>: null}
+							<th></th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						{this.props.todos.map(todo => (
-							<tr key = {todo.id} style = {{
-									color: this.ChangeColor(todo.status)
-								}}>
-								<td>
-									<button className = "btn btn-dark btn-sm" onClick = {() => {this.complete(todo.id, todo)}}>complete</button>
-								</td>
-								<td onClick = {() => {this.detail(todo.id)}}>{todo.content}</td>
-								{ this.display_detail ? <td>{todo.due}</td>: null}
-								{ this.display_detail ? <td>{todo.status}</td>: null}
-								<td>
-									<button className = "btn btn-danger btn-sm" onClick = {this.props.deleteTodo.bind(this, todo.id)}>Delete</button>
-								</td>							
-							</tr>
-						))}
+						{this.props.todos.map(todo => {
+							if(this.display_detail === false)
+								return(
+									<tr key = {todo.id}>
+										<td className = "crop" onClick = {() => {this.detail(todo.id)}}  style = {{
+											color: this.ChangeColor(todo.status)
+										}}>{todo.content}</td>
+										<td>
+											<a href = "#"  onClick = {() => {this.complete(todo.id, todo)}}>&#10004;</a>
+										</td>								
+										<td>
+											<a href = "#" onClick = {this.props.deleteTodo.bind(this, todo.id)}>&#x2718;</a>
+										</td>							
+									</tr>							
+								)
+							return(
+									<Fragment key = {todo.id}>
+										<tr><td className = "crop" onClick = {() => {this.detail(todo.id)}}  style = {{color: this.ChangeColor(todo.status)}}>{todo.content}</td>
+											<td></td>
+											<td></td>
+										</tr>
+										<tr>
+											<td className = "crop" onClick = {() => {this.getDate(todo.due)}}  style = {{color: this.ChangeColor(todo.status)}}>{todo.due}</td>
+											<td></td>
+											<td></td>
+										</tr>
+										<tr>
+											<td  style = {{color: this.ChangeColor(todo.status)}}>{todo.status}</td>
+											<td></td>
+											<td></td>
+										</tr>
+										<tr>
+											<td>
+												<a href = "#"  onClick = {() => {this.complete(todo.id, todo)}}>&#10004;</a>
+											</td>								
+											<td>
+												<a href = "#" onClick = {this.props.deleteTodo.bind(this, todo.id)}>&#x2718;</a>
+											</td>
+										</tr>
+									</Fragment>
+							)
+						})}
 					</tbody>
 				</table>
 			</div>
@@ -93,4 +128,4 @@ const mapStateToProps = state => ({
 	todos: state.todos.todos
 });
 
-export default connect(mapStateToProps, { getTodos, deleteTodo, getOneTodo, gettodoTodos, getdoneTodos, getdoingTodos, updateTodo })(Todos);
+export default connect(mapStateToProps, { getTodos, deleteTodo, getOneTodo, gettodoTodos, getdoneTodos, getdoingTodos, updateTodo, getdateTodos })(Todos);

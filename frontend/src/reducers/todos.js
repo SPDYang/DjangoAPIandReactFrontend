@@ -52,6 +52,12 @@ export default function(state = initialState, action) {
 				...state,
 				todos: [action.payload]
 			};
+
+		case "GET_DATE_TODOS":
+			return {
+				...state,
+				todos: action.payload
+			};
 		
 		default:
 			return state;
