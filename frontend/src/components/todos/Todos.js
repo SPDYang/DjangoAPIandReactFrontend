@@ -23,10 +23,12 @@ export class Todos extends Component {
 		this.props.getTodos();
 	}
 
-	ChangeColor = status => {
-		if(status === "done") {
+	ChangeColor = todo => {
+		let nowTime = new Date();
+		let dueTime = new Date(todo.due);
+		if(todo.status === "done") {
 			return "green";
-		}else if(status === "todo") {
+		}else if(nowTime > dueTime) {
 			return "red";
 		}else {
 			return "";
@@ -68,8 +70,7 @@ export class Todos extends Component {
 				<table className = "table table-striped">
 					<thead>
 						<tr>
-							
-							<th>Task</th>
+							<th>{ this.display_detail ? null : "Task"}</th>
 							<th></th>
 							<th></th>
 						</tr>
@@ -79,9 +80,8 @@ export class Todos extends Component {
 							if(this.display_detail === false)
 								return(
 									<tr key = {todo.id}>
-										<td className = "crop" onClick = {() => {this.detail(todo.id)}}  style = {{
-											color: this.ChangeColor(todo.status)
-										}}>{todo.content}</td>
+										<td className = "crop"><a href = "#" onClick = {() => {this.detail(todo.id)}}  style = {{color: this.ChangeColor(todo)}}>{todo.content}</a>
+										</td>
 										<td>
 											<a href = "#"  onClick = {() => {this.complete(todo.id, todo)}}>&#10004;</a>
 										</td>								
@@ -91,30 +91,34 @@ export class Todos extends Component {
 									</tr>							
 								)
 							return(
-									<Fragment key = {todo.id}>
-										<tr><td className = "crop" onClick = {() => {this.detail(todo.id)}}  style = {{color: this.ChangeColor(todo.status)}}>{todo.content}</td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td className = "crop" onClick = {() => {this.getDate(todo.due)}}  style = {{color: this.ChangeColor(todo.status)}}>{todo.due}</td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td  style = {{color: this.ChangeColor(todo.status)}}>{todo.status}</td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>
-												<a href = "#"  onClick = {() => {this.complete(todo.id, todo)}}>&#10004;</a>
-											</td>								
-											<td>
-												<a href = "#" onClick = {this.props.deleteTodo.bind(this, todo.id)}>&#x2718;</a>
-											</td>
-										</tr>
-									</Fragment>
+								<Fragment key = {todo.id}>
+									<tr>
+										<td className = "crop"><a href = "#" onClick = {() => {this.detail(todo.id)}}  style = {{color: this.ChangeColor(todo)}}>{todo.content}</a>
+										</td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td className = "crop" >
+											<a href = "#" onClick = {() => {this.getDate(todo.due)}}  style = {{color: this.ChangeColor(todo)}}>Due: {todo.due}</a>
+										</td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td  style = {{color: this.ChangeColor(todo)}}>Status: {todo.status}</td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>
+											<a href = "#"  onClick = {() => {this.complete(todo.id, todo)}}>&#10004;</a>
+										</td>								
+										<td>
+											<a href = "#" onClick = {this.props.deleteTodo.bind(this, todo.id)}>&#x2718;</a>
+										</td>
+									</tr>
+								</Fragment>
 							)
 						})}
 					</tbody>
