@@ -46,12 +46,7 @@ export class Form extends Component {
 					</div>
 					<div className = "form-group">
 						<label>Due</label>
-						<input
-						className = "form-control" 
- 						type = "datetime-local"
-						name = "due"
-						onChange = {this.onChange}
-						value = {due}
+						<input className = "form-control" type = "datetime-local" name = "due" onChange = {this.onChange} value = {due}
 						/>
 					</div>
 					<div className = "form-group">
