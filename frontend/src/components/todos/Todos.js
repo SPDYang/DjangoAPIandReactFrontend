@@ -28,24 +28,6 @@ export class Todos extends Component {
 		let now = new Date(now_pacific.valueOf() - now_pacific.getTimezoneOffset() * 60000);
 		let due = new Date(todo.due);
 
-		let nowYear = now.getFullYear();
-		let nowMonth = now.getMonth();
-		let nowDate = now.getDate();
-		let nowHour = now.getHours();
-		let nowMin = now.getMinutes();
-		let nowSec = now.getSeconds();
-		
-		let dueYear = due.getFullYear();
-		let dueMonth = due.getMonth();
-		let dueDate = due.getDate();
-		let dueHour = due.getHours();
-		let dueMin = due.getMinutes();
-		let dueSec = due.getSeconds();
-
-		console.log(now)
-		console.log(due)
-
-
 		if(todo.status === "done") {
 			return "green";
 		}else if(now >= due) {
