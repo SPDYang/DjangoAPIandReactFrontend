@@ -35,5 +35,5 @@ class TaskOnSameDate(APIView):
 		for task in tasks:
 			if task.obtain_date() == date:
 				targets.append(task)
-		serializer = TaskSerializer(targets ,many = True)
+		serializer = TaskSerializer(targets, many = True)
 		return Response(serializer.data)
