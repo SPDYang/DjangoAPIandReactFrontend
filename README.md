@@ -61,11 +61,11 @@ python3 manage.py test django_app.tests.TaskTest.test_get_single_task
 python3 manage.py test django_app.tests.TaskTest.test_create_task
 
 
-# test update a TODO (from root)
+# test updating a TODO (from root)
 python3 manage.py test django_app.tests.TaskTest.test_update_task
 
 
-# test delete a TODO (from root)
+# test deleting a TODO (from root)
 python3 manage.py test django_app.tests.TaskTest.test_delete_task
 
 
